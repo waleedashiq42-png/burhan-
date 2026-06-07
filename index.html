@@ -18,44 +18,78 @@
             }
         }
     </script>
-</head>
-<body class="bg-gray-50 font-sans text-gray-900 antialiased">
+    <style>
+        /* Custom Animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, transform;
+        }
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Floating effect for Hero Section */
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(12deg); }
+            50% { transform: translateY(-30px) rotate(15deg); }
+            100% { transform: translateY(0px) rotate(12deg); }
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
 
-    <nav class="fixed w-full bg-white shadow-md z-50">
+        @keyframes float-reverse {
+            0% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(20px) scale(1.1); }
+            100% { transform: translateY(0px) scale(1); }
+        }
+        .animate-float-reverse {
+            animation: float-reverse 4s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-900 antialiased overflow-x-hidden">
+
+    <!-- NAVIGATION -->
+    <nav class="fixed w-full bg-white/95 backdrop-blur-sm shadow-md z-50 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-20 items-center">
-                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
+                <div class="flex-shrink-0 flex items-center cursor-pointer transform hover:scale-105 transition duration-300" onclick="window.scrollTo(0,0)">
                     <i class="fa-solid fa-box-open text-brand text-3xl mr-2"></i>
                     <span class="font-bold text-2xl tracking-tight">VendPro</span>
                 </div>
                 <div class="hidden md:flex space-x-8">
-                    <a href="#home" class="text-gray-600 hover:text-brand font-medium transition">Home</a>
-                    <a href="#machines" class="text-gray-600 hover:text-brand font-medium transition">Our Machines</a>
-                    <a href="#contact" class="text-gray-600 hover:text-brand font-medium transition">Contact Us</a>
+                    <a href="#home" class="text-gray-600 hover:text-brand font-medium transition duration-300">Home</a>
+                    <a href="#machines" class="text-gray-600 hover:text-brand font-medium transition duration-300">Our Machines</a>
+                    <a href="#contact" class="text-gray-600 hover:text-brand font-medium transition duration-300">Contact Us</a>
                 </div>
                 <div class="md:hidden">
-                    <button class="text-gray-600 hover:text-brand"><i class="fa-solid fa-bars text-2xl"></i></button>
+                    <button class="text-gray-600 hover:text-brand transition"><i class="fa-solid fa-bars text-2xl"></i></button>
                 </div>
             </div>
         </div>
     </nav>
 
+    <!-- PAGE 1: HOME (Hero Section) -->
     <section id="home" class="pt-20 bg-white">
-        <div class="relative bg-gray-900 overflow-hidden">
-            <div class="max-w-7xl mx-auto">
-                <div class="relative z-10 pb-8 bg-gray-900 sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32 pt-20 px-4 sm:px-6 lg:px-8">
+        <div class="relative bg-gray-900 overflow-hidden min-h-[90vh] flex items-center">
+            <div class="max-w-7xl mx-auto w-full">
+                <div class="relative z-10 pb-8 bg-transparent sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32 px-4 sm:px-6 lg:px-8 animate-on-scroll">
                     <main class="mt-10 mx-auto max-w-7xl sm:mt-12 md:mt-16 lg:mt-20 xl:mt-28">
                         <div class="sm:text-center lg:text-left">
                             <h1 class="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl">
                                 <span class="block xl:inline">Modernizing your</span>
-                                <span class="block text-brand">refreshment experience</span>
+                                <span class="block text-brand mt-2">refreshment experience</span>
                             </h1>
                             <p class="mt-3 text-base text-gray-400 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
                                 High-tech, reliable, and energy-efficient vending machines for corporate offices, gyms, and public spaces. Elevate your space with automated convenience.
                             </p>
                             <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                                 <div class="rounded-md shadow">
-                                    <a href="#machines" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-brand hover:bg-brandDark md:py-4 md:text-lg transition">
+                                    <a href="#machines" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-brand hover:bg-brandDark hover:scale-105 md:py-4 md:text-lg transition-all duration-300 shadow-lg hover:shadow-brand/50">
                                         View Catalog
                                     </a>
                                 </div>
@@ -64,15 +98,26 @@
                     </main>
                 </div>
             </div>
-            <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 bg-gray-800 flex items-center justify-center">
-                <i class="fa-solid fa-cubes text-gray-700 text-[20rem] opacity-20 transform rotate-12"></i>
+            
+            <!-- Animated Background Elements -->
+            <div class="hidden lg:block absolute inset-y-0 right-0 w-1/2">
+                <div class="absolute top-1/4 right-1/4 animate-float text-brand opacity-20 text-[15rem]">
+                    <i class="fa-solid fa-cubes"></i>
+                </div>
+                <div class="absolute bottom-1/4 right-1/2 animate-float-reverse text-gray-600 opacity-20 text-[10rem]">
+                    <i class="fa-solid fa-mug-hot"></i>
+                </div>
+                <div class="absolute top-1/2 right-10 animate-float text-gray-500 opacity-20 text-[8rem]" style="animation-delay: 2s;">
+                    <i class="fa-solid fa-bottle-water"></i>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="machines" class="py-20 bg-gray-50">
+    <!-- PAGE 2: MACHINES (Products Section) -->
+    <section id="machines" class="py-24 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center">
+            <div class="text-center animate-on-scroll">
                 <h2 class="text-base text-brand font-semibold tracking-wide uppercase">Catalog</h2>
                 <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
                     Our Premium Machines
@@ -83,9 +128,10 @@
             </div>
 
             <div class="mt-16 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition">
-                    <div class="h-64 bg-gray-200 flex items-center justify-center">
-                        <i class="fa-solid fa-cookie-bite text-6xl text-gray-400"></i>
+                <!-- Machine 1 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 animate-on-scroll" style="transition-delay: 100ms;">
+                    <div class="h-64 bg-gray-200 flex items-center justify-center group">
+                        <i class="fa-solid fa-cookie-bite text-6xl text-gray-400 group-hover:text-brand group-hover:scale-110 transition-all duration-300"></i>
                     </div>
                     <div class="p-8">
                         <h3 class="text-2xl font-bold text-gray-900">SnackMaster Pro</h3>
@@ -101,9 +147,10 @@
                     </div>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition">
-                    <div class="h-64 bg-gray-200 flex items-center justify-center">
-                        <i class="fa-solid fa-bottle-water text-6xl text-gray-400"></i>
+                <!-- Machine 2 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 animate-on-scroll" style="transition-delay: 200ms;">
+                    <div class="h-64 bg-gray-200 flex items-center justify-center group">
+                        <i class="fa-solid fa-bottle-water text-6xl text-gray-400 group-hover:text-brand group-hover:scale-110 transition-all duration-300"></i>
                     </div>
                     <div class="p-8">
                         <h3 class="text-2xl font-bold text-gray-900">AquaVend 500</h3>
@@ -119,10 +166,11 @@
                     </div>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition relative">
-                    <div class="absolute top-0 right-0 bg-brand text-white px-3 py-1 rounded-bl-lg text-sm font-bold z-10">Best Seller</div>
-                    <div class="h-64 bg-gray-200 flex items-center justify-center">
-                        <i class="fa-solid fa-layer-group text-6xl text-gray-400"></i>
+                <!-- Machine 3 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 animate-on-scroll relative" style="transition-delay: 300ms;">
+                    <div class="absolute top-0 right-0 bg-brand text-white px-3 py-1 rounded-bl-lg text-sm font-bold z-10 shadow-md">Best Seller</div>
+                    <div class="h-64 bg-gray-200 flex items-center justify-center group">
+                        <i class="fa-solid fa-layer-group text-6xl text-gray-400 group-hover:text-brand group-hover:scale-110 transition-all duration-300"></i>
                     </div>
                     <div class="p-8">
                         <h3 class="text-2xl font-bold text-gray-900">ComboVend Ultra</h3>
@@ -141,29 +189,33 @@
         </div>
     </section>
 
-    <section id="contact" class="py-20 bg-white">
+    <!-- PAGE 3: CONTACT (Lead Gen Section) -->
+    <section id="contact" class="py-24 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="bg-brand rounded-2xl shadow-xl overflow-hidden lg:grid lg:grid-cols-2 lg:gap-4">
-                <div class="pt-10 pb-12 px-6 sm:pt-16 sm:px-16 lg:py-16 lg:pr-0 xl:py-20 xl:px-20 text-white">
-                    <div class="lg:self-center">
+            <div class="bg-brand rounded-2xl shadow-2xl overflow-hidden lg:grid lg:grid-cols-2 lg:gap-4 animate-on-scroll">
+                <div class="pt-10 pb-12 px-6 sm:pt-16 sm:px-16 lg:py-16 lg:pr-0 xl:py-20 xl:px-20 text-white relative overflow-hidden">
+                    <!-- Background decoration inside the blue box -->
+                    <i class="fa-solid fa-envelope absolute bottom-0 right-0 text-[15rem] opacity-10 transform translate-x-1/4 translate-y-1/4"></i>
+                    
+                    <div class="lg:self-center relative z-10">
                         <h2 class="text-3xl font-extrabold sm:text-4xl">
                             <span class="block">Ready to upgrade?</span>
                         </h2>
                         <p class="mt-4 text-lg leading-6 text-brand-100">
                             Get in touch with our sales team for bulk pricing, financing options, or custom machine wrapping. We reply within 24 hours.
                         </p>
-                        <div class="mt-8 space-y-4">
-                            <div class="flex items-center">
-                                <i class="fa-solid fa-phone mr-4"></i>
-                                <span>+1 (555) 123-4567</span>
+                        <div class="mt-8 space-y-6">
+                            <div class="flex items-center hover:translate-x-2 transition duration-300">
+                                <div class="bg-white/20 p-3 rounded-full mr-4"><i class="fa-solid fa-phone"></i></div>
+                                <span class="font-medium">+1 (555) 123-4567</span>
                             </div>
-                            <div class="flex items-center">
-                                <i class="fa-solid fa-envelope mr-4"></i>
-                                <span>sales@vendpro-dummy.com</span>
+                            <div class="flex items-center hover:translate-x-2 transition duration-300">
+                                <div class="bg-white/20 p-3 rounded-full mr-4"><i class="fa-solid fa-envelope"></i></div>
+                                <span class="font-medium">sales@vendpro-dummy.com</span>
                             </div>
-                            <div class="flex items-center">
-                                <i class="fa-solid fa-location-dot mr-4"></i>
-                                <span>123 Commerce Way, Tech City</span>
+                            <div class="flex items-center hover:translate-x-2 transition duration-300">
+                                <div class="bg-white/20 p-3 rounded-full mr-4"><i class="fa-solid fa-location-dot"></i></div>
+                                <span class="font-medium">123 Commerce Way, Tech City</span>
                             </div>
                         </div>
                     </div>
@@ -172,17 +224,17 @@
                     <form action="#" method="POST" class="w-full space-y-6">
                         <div>
                             <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
-                            <input type="text" name="name" id="name" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-brand focus:border-brand sm:text-sm p-3 border" placeholder="John Doe">
+                            <input type="text" name="name" id="name" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-brand focus:border-brand sm:text-sm p-3 border transition duration-300" placeholder="John Doe">
                         </div>
                         <div>
                             <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
-                            <input type="email" name="email" id="email" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-brand focus:border-brand sm:text-sm p-3 border" placeholder="john@company.com">
+                            <input type="email" name="email" id="email" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-brand focus:border-brand sm:text-sm p-3 border transition duration-300" placeholder="john@company.com">
                         </div>
                         <div>
                             <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
-                            <textarea id="message" name="message" rows="4" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-brand focus:border-brand sm:text-sm p-3 border" placeholder="I am interested in 3 ComboVend machines..."></textarea>
+                            <textarea id="message" name="message" rows="4" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-brand focus:border-brand sm:text-sm p-3 border transition duration-300" placeholder="I am interested in 3 ComboVend machines..."></textarea>
                         </div>
-                        <button type="submit" onclick="event.preventDefault(); alert('Dummy Form Submitted!');" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-brand hover:bg-brandDark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand transition">
+                        <button type="submit" onclick="event.preventDefault(); alert('Dummy Form Submitted Successfully!');" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-brand hover:bg-brandDark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
                             Send Request
                         </button>
                     </form>
@@ -191,9 +243,33 @@
         </div>
     </section>
 
+    <!-- FOOTER -->
     <footer class="bg-gray-900 py-8 text-center text-gray-400">
         <p>&copy; 2024 VendPro Solutions. All rights reserved. (Dummy Data)</p>
     </footer>
 
+    <!-- INTERSECTION OBSERVER JAVASCRIPT FOR SCROLL ANIMATIONS -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target); // Only animate once
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.animate-on-scroll').forEach((elem) => {
+                observer.observe(elem);
+            });
+        });
+    </script>
 </body>
 </html>
